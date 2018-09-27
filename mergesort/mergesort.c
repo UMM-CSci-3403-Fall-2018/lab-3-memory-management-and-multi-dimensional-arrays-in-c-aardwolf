@@ -21,6 +21,32 @@ void mergeRanges(int values[], int start, int mid, int end){
   int firstIndex = start;
   int secondIndex = mid;
   int copyIndex = 0;
+  while (firstIndex < mid && secondIndex < end){
+    if(values[firstIndex]< values[secondIndex]){
+      destination[copyIndex]= values[secondIndex];
+      ++firstIndex;
+    } else {
+      destination[copyIndex]=values[secondIndex];
+      ++secondIndex;
+    }
+    ++copyIndex
+  }
+
+  while(firstIndex < mid){
+    destination[copyIndex]= values[firstIndex];
+    ++copyIndex;
+    ++firstIndex;
+  }
+
+  while (secondIndex < end) {
+    destination[copyIndex] = values[secondIndex];
+    ++copyIndex;
+    ++secondIndex;
+  }
+
+  for int i = 0; i < rangeSize; ++i){
+    values[i + startIndex] = destination[i];
+  }
 }
 
 bool needSorting(int rangeSize){
