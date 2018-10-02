@@ -1,4 +1,6 @@
 #include<stdio.h>
+#include<stdlib.h>
+
 #include "array_merge.h"
 
 //Include a main method for easier testing
@@ -18,11 +20,18 @@ int main(void)
   return 0;
 }
 
+//Helper function to pritn arrays
+void print_array(int* array){
+  for (i = 0; i < 10; i += 2){
+    printf( "%d, ", array[i]);
+  }
+}
+
 int* array_merge(int num_arrays, int* sizes, int** values){
 
   //Determine size of the results (note that this is currently estimating)
   int count;
-  for(i = 0; i < num_arrays; i ++){
+  for(int i = 0; i < num_arrays; i ++){
     count += sizes[i];
   }
 
@@ -33,12 +42,12 @@ int* array_merge(int num_arrays, int* sizes, int** values){
   int position = 0;
 
   //Loop over each sub-array
-  for(i = 0; i < num_arrays; i++){
+  for(int i = 0; i < num_arrays; i++){
 
     //Loop over each element of each sub-array
-    for(j = 0; j < sizes[i]){
+    for(int j = 0; j < sizes[i]; j++){
       results[position] = values[i][j];
-      position += 1;
+      position++;
     }
   }
   return sizes;
