@@ -3,23 +3,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-//int main(int argc, char *argv[]){
-  // int a[] = {1,2,3,4,5};
-  // mergesort(5, a);
-  //print_array(5,a);
-// }
-//
-// void print_array(int length, int *array)
-// {
-//     for (int i = 0; i < length; i++) {
-//         printf("%d, ",array[i]);
-//     }
-// }
 
+// sorts the array if it has a size greater than 1
 bool needSorting(int rangeSize){
   return rangeSize >= 2;
 }
-
+// a  method to merge the ranges
 void mergeRanges(int values[], int start, int mid, int end){
   int rangeSize = end- start;
   int* destination;
@@ -27,6 +16,9 @@ void mergeRanges(int values[], int start, int mid, int end){
   int firstIndex = start;
   int secondIndex = mid;
   int copyIndex = 0;
+
+//goes through and sorts the array based on the location in the
+//array
 
   while (firstIndex < mid && secondIndex < end){
     if(values[firstIndex]< values[secondIndex]){
@@ -54,14 +46,13 @@ void mergeRanges(int values[], int start, int mid, int end){
   for (int i = 0; i < rangeSize; ++i){
     values[i + start] = destination[i];
   }
+  //eliminates any memory leaks
   free(destination);
 }
 
 void mergesortRange(int values[], int start, int end){
   int rangeSize = end - start;
-  //print_array(rangeSize, values);
-  //printf("\n");
-
+//if it needs to be sorted, then it sorts the arrays and merges them together
   if(needSorting(rangeSize)){
     int midPoint = (start + end) / 2;
     mergesortRange(values, start, midPoint);
