@@ -5,7 +5,8 @@
 
 //Helper function to printint arrays
 void print_array(int size, int* array){
-  for (int i = 0; i < size; i += 1){
+  printf("\nSize: %d\nElements: ", array[0]);
+  for (int i = 1; i < size + 1; i += 1){
     printf( "%d, ", array[i]);
   }
   printf("\n");
@@ -29,13 +30,13 @@ int main(void)
   int count = result[0];
 
 
-  printf("Output:");
+  printf("\nOutput:");
   print_array(count, result);
   return 0;
 }
 
 bool element_is_unique(int element, int size, int* values){
-  for(int i = 0; i < size; i++){
+  for(int i = 1; i < size; i++){
     if(values[i] == element){
       return false;
     }
@@ -77,12 +78,11 @@ int* array_merge(int num_arrays, int* sizes, int** values){
       }
     }
   }
-  results[0] = position;
-
   int* cleaned_results = malloc((position*sizeof(int)));
-  for(int i = 0; i < position; i ++){
+  for(int i = 1; i < position; i ++){
     cleaned_results[i] = results[i];
   }
+  cleaned_results[0] = (position-1);
   free(results);
   return(cleaned_results);
 }
