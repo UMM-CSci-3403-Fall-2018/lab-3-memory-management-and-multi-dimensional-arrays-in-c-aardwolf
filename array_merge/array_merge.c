@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+#include <stdbool.h>
 #include "array_merge.h"
 
 //Helper function to printint arrays
@@ -24,9 +24,8 @@ int main(void)
   int a2[] = { 8, 5, 0, 2, 3, 0, 2, 3, 6, 9 };
   int* a[] = { a0, a1, a2, a0, a1, a2, a0, a1, a2 };
 
-  int* result;
-
-  result = array_merge(num_arrays, sizes, a);
+  printf("Preparing to merge...!\n");
+  int* result = array_merge(num_arrays, sizes, a);
   int count = result[0];
 
 
@@ -35,37 +34,57 @@ int main(void)
   return 0;
 }
 
-int* array_merge(int num_arrays, int* sizes, int** values){
+bool element_is_unique(int element, int size, int* values){
+  for(int i = 0; i < size; i++){
+    if(values[i] == element){
+      return false;
+    }
+  }
+  printf("Element is not unique...\n");
+  return true;
+}
 
-  //Determine size of the results (int a0[] = { 3, 2, 0, 5, 8, 9, 6, 3, 2, 0 };note that this is currently estimating)
-  int count;
-  for(int i = 0; i < num_arrays; i ++){
-    count += sizes[i];
+int* array_merge(int num_arrays, int* sizes, int** values){
+  printf("Starting merge...\n");
+
+  //Estimate of size
+  int max_count;
+  for(int i = 1; i < num_arrays; i ++){
+    max_count += sizes[i];
   }
 
-  //Create results based on count
-  int* results = malloc((count*sizeof(int))+1);
+  //Create results based on count (estimate)
+  int* results = malloc((max_count*sizeof(int))+1);
 
-  //Position is the current append position in results
+  //Position is the current append pprint_arrosition in results
   int position = 1;
 
   //Count as the first position -Remember that we still need to optimize this
-  results[0] = count;
 
   //Loop over each sub-array
   for(int i = 0; i < num_arrays; i++){
 
     //print
-    print_array(sizes[i],values[i]);
+    print_array(sizes[i],results);
 
     //Loop over each element of each sub-array
     for(int j = 0; j < sizes[i]; j++){
-      results[position] = values[i][j];
-      printf("%d\n", values[i][j]);
-      position++;
+      int v = values[i][j];
+      if(element_is_unique(v,position,results)){
+        results[position] = values[i][j];
+        printf("%d\n", values[i][j]);
+        position++;
+      }
     }
   }
-  return sizes;
+  results[0] = position;
+
+  int* cleaned_results = malloc((position*sizeof(int)));
+  for(int i = 0; i < position; i ++){
+    cleaned_results[i] = results[i];
+  }
+  free(results);
+  return(cleaned_results);
 }
 
 
