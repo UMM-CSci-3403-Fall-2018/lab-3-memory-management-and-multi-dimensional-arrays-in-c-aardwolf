@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include <stdbool.h>
 #include "array_merge.h"
-#include "../mergesort/merge_sort.h"
+#include "../mergesort/mergesort.c"
 //Helper function to printint arrays
 void print_array(int size, int* array){
   printf("\nSize: %d\nElements: ", array[0]);
@@ -84,7 +84,7 @@ int* array_merge(int num_arrays, int* sizes, int** values){
   }
   cleaned_results[0] = (position-1);
   free(results);
-  mergesortRange(cleaned_results,1,position-1)
+  mergesortRange(cleaned_results,1,position-1);
   return(cleaned_results);
 }
 
