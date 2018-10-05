@@ -16,7 +16,7 @@ bool element_is_unique(int element, int size, int* values){
 int* array_merge(int num_arrays, int* sizes, int** values){
 
   //Estimate of size
-  int max_count;
+  int max_count = 0;
   for(int i = 0; i < num_arrays; i ++){
     max_count += sizes[i];
   }
